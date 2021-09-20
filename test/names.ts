@@ -53,4 +53,15 @@ describe("Testing Names.sol", function() {
         await names.connect(minter).mintName(desiredTokenId);
         await nameMintedPromise;
     })
+
+    it("Should revert when someone tries to mint an already minted NFT", async () => {
+        const desiredTokenId: number = 100;
+
+        const [,,someRandomMinter]: SignerWithAddress[] = await ethers.getSigners();
+
+        // Shoot, someone minted the NFT with ID 100 before me.
+        await names.connect(minter).mintName(desiredTokenId);
+
+        await expect(names.connect(someRandomMinter).mintName(desiredTokenId)).to.be.revertedWith("ERC721: token already minted");
+    })
 })

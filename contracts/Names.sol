@@ -32,6 +32,7 @@ contract Names is ERC721 {
         "the Great,Jr.,Sr.,the Ape,the Magnificent,the Impaler,the Able,the Ambitious,the Astrologer,the Bad,the Bastard,the Blessed,the Bloody,the Conqueror,the Cruel,the Damned,Dracula,the Drunkard,the Elder,the Eloquent,the Enlightened,the Fair,the Farmer,the Fat,the Fearless,the Fighter,the Comfy,the Couch,the Fortunate,the Generous,the Gentle,the Glorious,the Good,the God-Given,the God,the Grim,the Handsome,the Hammer,Hadrada,the Hidden,the Holy,the Hunter,the Illustrious,the Invincible,the Iron,the Just,the Kind,the Lame,the Last,the Lawgiver,the Learned,the Liberator,the Lion,the Mad,the Magnanimous,the Mighty,the Monk,the Mild,the Musician,the Navigator,the Nobel,the Old,the One-Eyed,the Outlaw,the Pale,the Peaceful,the Philosopher,the Pilgrim,the Pious,the Poet,the Proud,the Quiet,the Rash,the Red,the Reformer,the Saint,the Savior,the Seer,the Short,the Silent,the Simple,the Sorcerer,the Strong,the Tall,the Terrible,the Thunderbolt,the Trembling,the Tyrant,the Unlucky,the Unready,the Vain,the Virgin,the Warrior,the Weak,the Wicked,the Wise,the Young,the Cuck,the Chad,the NoCoiner,.eth,da gay,the Prophet,the Paper-Handed,the Diamond-Handed";
     uint256 private constant suffixesLength = 104;
 
+    /// @dev Emitted when an NFT is minted.
     event NameMinted(address _to, uint tokenId, string name);
 
     constructor(
@@ -83,6 +84,7 @@ contract Names is ERC721 {
         return fullName;
     }
 
+    /// @dev Returns the URI for the NFT with id `tokenId`
     function tokenURI(uint256 tokenId) public pure override returns (string memory) {
         string[3] memory parts;
 
@@ -155,6 +157,9 @@ contract Names is ERC721 {
     }
 
     /// @dev Returns a single item at `index` from csv `str`
+    /// @param str - The entire comma separated string.
+    /// @param index - the position in the comma separated string.
+    ///                E.g. If `index` == 10, the returned item will be the 11th name in `str` (zero indexed).
     function getItemFromCSV(string memory str, uint256 index)
         internal
         pure
